@@ -1,10 +1,11 @@
-FROM karacic/xenial-base:ginkgo.master
+FROM no_upload/xenial-base:ginkgo.master
 
 RUN sudo rm -rf /edx/app/edx_ansible/edx_ansible
 RUN git clone --depth 1 --branch open-release/ginkgo.master https://github.com/edx/configuration.git /edx/app/edx_ansible/edx_ansible
 
 WORKDIR /edx/app/edx_ansible/edx_ansible/docker/plays
 COPY ansible_overrides.yml /
+COPY main.yml /edx/app/edx_ansible/edx_ansible/playbooks/roles/rbenv/tasks/main.yml
 
 ARG container_prefix
 ARG OPENEDX_RELEASE=open-release/ginkgo.master
@@ -14,7 +15,7 @@ RUN /edx/app/edx_ansible/venvs/edx_ansible/bin/ansible-playbook forum.yml \
     -t "install:base,install:configuration,install:app-requirements,install:code" \
     --extra-vars=container_prefix=${container_prefix} \
     --extra-vars="forum_version=${OPENEDX_RELEASE}" \
-    --extra-vars="@/ansible_overrides.yml"
+    --extra-vars="@/ansible_overrides.yml" 
 
 WORKDIR /edx/app
 CMD ["/edx/app/supervisor/venvs/supervisor/bin/supervisord", "-n", "--configuration", "/edx/app/supervisor/supervisord.conf"]
