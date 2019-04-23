@@ -1,4 +1,4 @@
-FROM karacic/xenial-base:ginkgo.master
+FROM no_upload/xenial-base:ginkgo.master
 
 RUN sudo rm -rf /edx/app/edx_ansible/edx_ansible
 RUN git clone --depth 1 --branch open-release/ginkgo.master https://github.com/edx/configuration.git /edx/app/edx_ansible/edx_ansible

@@ -9,7 +9,7 @@ services:
 
   elasticsearch:
     container_name: ${CONTAINER_PREFIX}.elasticsearch
-    image: ${DOCKER_TAG}/elasticsearch:${CONTAINER_PREFIX}-ginkgo.master
+    image: karacic/elasticsearch:${CONTAINER_PREFIX}-ginkgo.master
     # ports:
     #   - "9200:9200"
     #   - "9300:9300"
@@ -36,8 +36,8 @@ services:
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     image: mysql:5.6
-    ports:
-      - "3306:3306"
+    # ports:
+    #   - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql
 
@@ -57,7 +57,7 @@ services:
       BOK_CHOY_CMS_PORT: 18031
       EDXAPP_TEST_MONGO_HOST: ${CONTAINER_PREFIX}.mongo
       NO_PYTHON_UNINSTALL: 1
-    image: ${DOCKER_TAG}/edxapp:${CONTAINER_PREFIX}-ginkgo.master
+    image: karacic/edxapp:${CONTAINER_PREFIX}-ginkgo.master
     ports:
       - "18000:18000"
       - "19876:19876" # JS test debugging
@@ -82,7 +82,7 @@ services:
       BOK_CHOY_CMS_PORT: 18131
       EDXAPP_TEST_MONGO_HOST: ${CONTAINER_PREFIX}.mongo
       NO_PYTHON_UNINSTALL: 1
-    image: ${DOCKER_TAG}/edxapp:${CONTAINER_PREFIX}-ginkgo.master
+    image: karacic/edxapp:${CONTAINER_PREFIX}-ginkgo.master
     ports:
       - "18010:18010"
       - "19877:19877" # JS test debugging
